@@ -1,11 +1,13 @@
 Package: ncRNAtools
 Type: Package
 Title: An R toolkit for non-coding RNA
-Version: 0.99.0
+Version: 0.99.1
 Date: 2020-07-24
-Author: Lara Selles Vidal, Rafael Ayala, Guy-Bart Stan, Rodrigo Ledesma-Amaro
-Maintainer: Lara Selles Vidal <lara.selles12@imperial.ac.uk>,
-            Rafael Ayala <r.ayala14@imperial.ac.uk>
+Authors@R: c(
+    person("Lara", "Selles Vidal", email = "lara.selles12@imperial.ac.uk", role = "cre"),
+    person("Rafael", "Ayala", email = "r.ayala14@imperial.ac.uk", role = "aut"),
+    person("Guy-Bart", "Stan", email = "g.stan@imperial.ac.uk", role = "aut"),
+    person("Rodrigo", "Ledesma-Amaro", email = "r.ledesma-amaro@imperial.ac.uk", role = "aut"))
 Description: ncRNAtools provides a set of basic tools for handling and 
     analyzing non-coding RNAs. These include tools to access the RNAcentral
     database, to predict and visualize the secondary structure of non-coding
