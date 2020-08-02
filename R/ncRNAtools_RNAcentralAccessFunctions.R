@@ -29,7 +29,7 @@ rnaCentralRetrieveEntry <- function(rnaCentralID) {
 }
 
 rnaCentralGenomicCoordinatesSearch <- function(genomicRanges, species) {
-  if (!is(genomicRanges, "GRanges)) {
+  if (!is(genomicRanges, "GRanges")) {
     stop("Please provide a valid GRanges object with genomic coordinates.")
   }
   if (length(strsplit(species, split=" ")[[1]]) != 2) {

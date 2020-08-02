@@ -1,7 +1,7 @@
 Package: ncRNAtools
 Type: Package
 Title: An R toolkit for non-coding RNA
-Version: 0.99.2
+Version: 0.99.3
 Date: 2020-07-24
 Authors@R: c(
     person("Lara", "Selles Vidal", email = "lara.selles12@imperial.ac.uk", role = "cre"),
