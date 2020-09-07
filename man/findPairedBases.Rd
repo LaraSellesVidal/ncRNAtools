@@ -33,14 +33,16 @@ following 4 columns:
   }
 }
 \examples{
-# Predict the secondary structure of an RNA sequence with centroidFold:
+# Read a Dot Bracket file with the secondary structure of an RNA sequence:
 
-structurePrediction <- predictSecondaryStructure("GGGGAUGUAGCUCAUAUGGUAGAGCGCUCG
-CUUUGCAUGCGAGAGGCACAGGGUUCGAUUCCCUGCAUCUCCA", "centroidFold")
+exampleDotBracketFile <- system.file("extdata", "exampleDotBracket.dot", 
+                                     package="ncRNAtools")
+
+exampleDotBracket <- readDotBracket(exampleDotBracketFile)
 
 # Generate a dataframe of paired bases from the returned secondary structure
 # string:
 
-pairedBasesTable <- findPairedBases(secondaryStructureString=structurePrediction$secondaryStructure,
-sequence=structurePrediction$sequence)
+pairedBasesTable <- findPairedBases(secondaryStructureString=exampleDotBracket$secondaryStructure,
+sequence=exampleDotBracket$sequence)
 }

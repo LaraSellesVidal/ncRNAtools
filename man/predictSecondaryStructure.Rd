@@ -123,11 +123,10 @@ Bioinformatics. 2011;27(13):i85-i93. doi:10.1093/bioinformatics/btr215
 http://rtools.cbrc.jp/
 }
 \examples{
-# Predict the secondary structure of an RNA sequence with IPknot to enable
-# detection of pseudoknots:
+# Predict the secondary structure of an RNA sequence with IPknot:
 
-structurePrediction <- predictSecondaryStructure("GGGGAUGUAGCUCAUAUGGUAGAGCGCUCG
-CUUUGCAUGCGAGAGGCACAGGGUUCGAUUCCCUGCAUCUCCA", "IPknot", inferenceEngine = "NUPACK")
+structurePrediction <- predictSecondaryStructure("UGCGAGAGGCACAGGGUUCGAUUCCCUGCA
+UCUCCA", "IPknot", inferenceEngine = "NUPACK")
 
 # Extract the string representing the secondary structure prediction:
 

@@ -6,6 +6,7 @@
 Attempts to identify potential alternative secondary structures of the provided
 RNA sequence using the RintW method, based on the decomposition of the base-pairing
 probability matrix over the Hamming distance to a reference secondary structure.
+It should be noted that RintW runs can take considerable amounts of time.
 }
 \usage{
 predictAlternativeSecondaryStructures(sequence, gammaWeight=4, inferenceEngine="BL")
@@ -70,8 +71,7 @@ http://rtools.cbrc.jp/
 \examples{
 # Predict alternative secondary structures of an RNA sequence:
 
-alternativeStructures <- predictAlternativeSecondaryStructures("GGGGAUGUAGCUCAUA
-UGGUAGAGCGCUCGCUUUGCAUGCGAGAGGC")
+alternativeStructures <- predictAlternativeSecondaryStructures("AAAGGGGUUUCCC")
 
 # Count the number of potential alternative structures identified:
 

@@ -28,18 +28,12 @@ paired bases are represented with pairs of round brackets ("("-")").
 https://www.tbi.univie.ac.at/RNA/ViennaRNA/doc/html/rna_structure_notations.html
 }
 \examples{
-# Predict the secondary structure of an RNA sequence with IPknot to enable
-# detection of pseudoknots:
+# A secondary structure string with characters other than dots and round 
+# brackets, representing unambiguously pseudo-knots:
 
-structurePrediction <- predictSecondaryStructure("GGGGAUGUAGCUCAUAUGGUAGAGCGCUCG
-CUUUGCAUGCGAGAGGCACAGGGUUCGAUUCCCUGCAUCUCCA", "IPknot", inferenceEngine = "NUPACK")
-
-# The resulting prediction contains squared brackets to indicate the presence
-# of a pseudoknot:
-
-structurePrediction$secondaryStructure
+extendedDotBracketString <- "((((....((((.((((([[[[...)))))]]]]..)))).....))))."
 
 # Convert it to the basic Dot-Bracket format:
 
-basicDotBracketString <- flattenDotBracket(structurePrediction$secondaryStructure)
+basicDotBracketString <- flattenDotBracket(extendedDotBracketString)
 }

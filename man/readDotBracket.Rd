@@ -43,13 +43,11 @@ https://software.broadinstitute.org/software/igv/RNAsecStructure
 http://projects.binf.ku.dk/pgardner/bralibase/RNAformats.html
 }
 \examples{
-# Download an example Dot-Bracket file to a temporary location:
+exampleDotBracketFile <- system.file("extdata", "exampleDotBracket.dot", 
+                                     package="ncRNAtools")
 
-temp <- tempfile()
-download.file("http://www.biomath.nyu.edu/rag/examples/Top1.out", temp)
+exampleDotBracket <- readDotBracket(exampleDotBracketFile)
 
-# Read the downloaded file. It does not contain an initial line with the name
-# of the sequence, and therefore sequenceName will be set to NA
-
-secondaryStructure <- readDotBracket(temp)
+# Since the file does not contain an initial line with the name of the sequence,
+# sequenceName is set to NA
 }

@@ -11,7 +11,7 @@ are represented with black squares in the corresponding cells. Usually, a
 correspondance between paired bases and high-probability base pairs is observed.
 }
 \usage{
-plotCompositePairsMatrix(basePairProbsMatrix, pairedBases, probabilityThreshold=0.1, filename=NULL,
+plotCompositePairsMatrix(basePairProbsMatrix, pairedBases, probabilityThreshold=0.1,
                          colorPalette=paste(rainbow(7, rev=TRUE), "FF", sep=""))
 }
 \arguments{
@@ -27,9 +27,6 @@ plotCompositePairsMatrix(basePairProbsMatrix, pairedBases, probabilityThreshold=
   will not be considered, and their corresponding cell in the plot will be left
   blank.
   }
-  \item{filename}{An optional string indicating a file to which the generated
-  plot should be saved.
-  }
   \item{colorPalette}{Color palette to be used for displaying the probabilities
   above the specified threshold.
   }
@@ -39,10 +36,12 @@ A ggplot object with a representation of the base pair probability matrix and
 bases paired in a given secondary structure.
 }
 \examples{
-# Predict the secondary structure of an RNA and base pair probabilities
-# with centroidFold:
+# Create a list with an RNA sequence, its secondary structure and a table of 
+# base pair probabilities, calculated with centroidFold:
 
-secondaryStructure <- predictSecondaryStructure  ("GGGGAUGUAGCUCAUAUGGUAGAGCGCUCGCUUUGCAUGCGAGAGGCACAGGGUUCGAUUCCCUGCAUCUCCA", method="centroidFold")
+secondaryStructure <- list(sequence="GGGGAUGUAGCUCAUAUGGUAGAGCGCUCGCUUUGCAUGCGAGAGGCACAGGGUUCGAUUCCCUGCAUCUCCA",
+secondaryStructure="(((((((..((((........)))).(((((.......))))).....(((((.......)))))))))))).",
+basePairProbabilities=read.csv(system.file("extdata", "exampleBasePairProbabilitiesTable.csv", package="ncRNAtools")))
 
 # Generate a matrix of base pair probabilities:
 

@@ -3,7 +3,7 @@ readCT <- function(filename, sequence=NULL) {
   firstLine <- readLines(inputFile, n=1)
   connectivityTable <- read.table(inputFile)
   close(inputFile)
-  firstLineFields <- unlist(strsplit(firstLine, "\\s", perl=TRUE))
+  firstLineFields <- splitString(firstLine, split="\\s", perl=TRUE)
   sequenceLength <- as.integer(firstLineFields[1])
   sequenceName <- firstLineFields[length(firstLineFields)]
   reconstructedSequence <- paste(connectivityTable[, 2], collapse="")
@@ -19,10 +19,11 @@ readCT <- function(filename, sequence=NULL) {
   }
   pairsTable <- connectivityTable[(connectivityTable[, 5] != 0) & (connectivityTable[, 5] > connectivityTable[, 1]), ]
   pairsTable <- pairsTable[, c(1, 5, 2)]
-  complementaryNucleotides <- unlist(strsplit(sequence, split=""))[pairsTable[, 2]]
+  complementaryNucleotides <- splitString(sequence, split="")[pairsTable[, 2]]
   pairsTable <- cbind(pairsTable, complementaryNucleotides)
   colnames(pairsTable) <- c("Position1", "Position2", "Nucleotide1", "Nucleotide2")
-  resultsList <- list(sequenceName=sequenceName, sequence=sequence, sequenceLength=sequenceLength, pairsTable=pairsTable)
+  resultsList <- list(sequenceName=sequenceName, sequence=sequence, 
+                      sequenceLength=sequenceLength, pairsTable=pairsTable)
   return(resultsList)
 }
 
@@ -33,18 +34,19 @@ readDotBracket <- function(filename) {
     sequenceName <- substring(firstLine, 2)
     sequence <- readLines(inputFile, n=1)
     structureLine <- readLines(inputFile, n=1)
-    secondaryStructure <- unlist(strsplit(structureLine, " "))[1]
-    freeEnergy <- as.numeric(gsub("[^-+0123456789\\.]", "",
-                                  unlist(strsplit(structureLine, " "))[2]))
+    secondaryStructure <- splitString(structureLine, " ")[1]
+    freeEnergy <- as.numeric(gsub("[^-+[:digit:]\\.]", "",
+                                  splitString(structureLine, split=" ")[2]))
   }
   else {
     sequenceName <- NA
     sequence <- firstLine
     structureLine <- readLines(inputFile, n=1)
-    secondaryStructure <- unlist(strsplit(structureLine, " "))[1]
-    freeEnergy <- as.numeric(gsub("[^-+0123456789\\.]", "",
-                                  unlist(strsplit(structureLine, " "))[2]))
+    secondaryStructure <- splitString(structureLine, " ")[1]
+    freeEnergy <- as.numeric(gsub("[^-+[:digit:]\\.]", "",
+                                  splitString(structureLine, " ")[2]))
   }
+  close(inputFile)
   resultsList <- list(sequenceName=sequenceName, sequence=sequence,
                       secondaryStructure=secondaryStructure, freeEnergy=freeEnergy)
   return(resultsList)
@@ -63,18 +65,24 @@ writeCT <- function(filename, sequence, secondaryStructure=NULL, sequenceName="S
   for (i in seq_len(nchar(sequence))) {
     if (i %in% pairsTable[, 1]) {
       rowToWrite <- which(pairsTable[, 1] == i)
-      writeLines(paste(i, substr(sequence, i, i), i-1, i+1, pairsTable[rowToWrite, 2], i, sep="\t"), outputFile)
+      writeLines(paste(i, substr(sequence, i, i), i-1, i+1, 
+                       pairsTable[rowToWrite, 2], i, sep="\t"), 
+                 outputFile)
     } else if (i %in% pairsTable[, 2]) {
       rowToWrite <- which(pairsTable[, 2] == i)
-      writeLines(paste(i, substr(sequence, i, i), i-1, i+1, pairsTable[rowToWrite, 1], i, sep="\t"), outputFile)
+      writeLines(paste(i, substr(sequence, i, i), i-1, i+1, 
+                       pairsTable[rowToWrite, 1], i, sep="\t"), 
+                 outputFile)
     } else {
-      writeLines(paste(i, substr(sequence, i, i), i-1, i+1, 0, i, sep="\t"), outputFile)
+      writeLines(paste(i, substr(sequence, i, i), i-1, i+1, 0, i, sep="\t"), 
+                 outputFile)
     }
   }
   close(outputFile)
 }
 
-writeDotBracket <- function(filename, sequence, secondaryStructure, sequenceName="Sequence") {
+writeDotBracket <- function(filename, sequence, secondaryStructure, 
+                            sequenceName="Sequence") {
   outputFile <- file(filename, "w")
   writeLines(paste(">", sequenceName, sep=""), outputFile)
   writeLines(sequence, outputFile)

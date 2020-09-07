@@ -7,7 +7,7 @@ Generates a heatmap-like plot to visualize the probabilities that different
 bases of an RNA molecule form a pair.
 }
 \usage{
-plotPairsProbabilityMatrix(basePairProbsMatrix, probabilityThreshold=0.1, filename=NULL,
+plotPairsProbabilityMatrix(basePairProbsMatrix, probabilityThreshold=0.1,
                            colorPalette=paste(rainbow(7, rev=TRUE), "FF", sep=""))
 }
 \arguments{
@@ -20,9 +20,6 @@ plotPairsProbabilityMatrix(basePairProbsMatrix, probabilityThreshold=0.1, filena
   will not be considered, and their corresponding cell in the plot will be left
   blank.
   }
-  \item{filename}{An optional string indicating a file to which the generated
-  plot should be saved.
-  }
   \item{colorPalette}{Color palette to be used for displaying the probabilities
   above the specified threshold.
   }
@@ -31,14 +28,13 @@ plotPairsProbabilityMatrix(basePairProbsMatrix, probabilityThreshold=0.1, filena
 A ggplot object with a representation of the base pair probability matrix.
 }
 \examples{
-# Predict the secondary structure of an RNA and base pair probabilities
-# with centroidFold:
+# Load an example table of base pair probabilities, calculated with centroidFold:
 
-secondaryStructure <- predictSecondaryStructure  ("GGGGAUGUAGCUCAUAUGGUAGAGCGCUCGCUUUGCAUGCGAGAGGCACAGGGUUCGAUUCCCUGCAUCUCCA", method="centroidFold")
+basePairProbabilitiesTable <- read.csv(system.file("extdata", "exampleBasePairProbabilitiesTable.csv", package="ncRNAtools"))
 
 # Generate a matrix of base pair probabilities:
 
-probabilitiesMatrix <- generatePairsProbabilityMatrix(secondaryStructure$basePairProbabilities)
+probabilitiesMatrix <- generatePairsProbabilityMatrix(basePairProbabilitiesTable)
 
 # Plot the probability matrix
 

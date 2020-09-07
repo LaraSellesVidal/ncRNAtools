@@ -34,12 +34,14 @@ predictAlternativeSecondaryStructures <- function(sequence, gammaWeight=4, infer
 generatePairsProbabilityMatrix <- function(basePairProbsTable) {
   sequenceLength <- nrow(basePairProbsTable)
   sequenceNucleotides <- paste0(basePairProbsTable[, 2], seq_len(sequenceLength))
-  basePairProbsMatrix <- matrix(0, nrow=sequenceLength, ncol=sequenceLength, dimnames=list(sequenceNucleotides, sequenceNucleotides))
+  basePairProbsMatrix <- matrix(0, nrow=sequenceLength, ncol=sequenceLength, 
+                                dimnames=list(sequenceNucleotides, sequenceNucleotides))
   for (row in seq_len(nrow(basePairProbsTable))) {
-    basePairProbabilitiesList <- lapply(basePairProbsTable[row, c(-1, -2)], FUN=extractBasePairProbability)
+    basePairProbabilitiesList <- lapply(basePairProbsTable[row, c(-1, -2)], 
+                                        FUN=extractBasePairProbability)
     basePairProbabilitiesList <- basePairProbabilitiesList[lengths(basePairProbabilitiesList) != 0]
-    pairedBasesPositions <- unlist(sapply(basePairProbabilitiesList, `[[`, 1))
-    basePairProbabilities <- unlist(sapply(basePairProbabilitiesList, `[[`, 2))
+    pairedBasesPositions <- unlist(lapply(basePairProbabilitiesList, `[[`, 1))
+    basePairProbabilities <- unlist(lapply(basePairProbabilitiesList, `[[`, 2))
     basePairProbsMatrix[row, pairedBasesPositions] <- basePairProbabilities
   }
   basePairProbsMatrix[lower.tri(basePairProbsMatrix)] <- t(basePairProbsMatrix)[lower.tri(basePairProbsMatrix)]
@@ -48,8 +50,8 @@ generatePairsProbabilityMatrix <- function(basePairProbsTable) {
 
 findPairedBases <- function(secondaryStructureString, sequence) {
   checkBasicDotBracketString(secondaryStructureString)
-  secondaryStructureCharacters <- unlist(strsplit(secondaryStructureString, split=""))
-  sequenceCharacters <- unlist(strsplit(sequence, split=""))
+  secondaryStructureCharacters <- splitString(secondaryStructureString, split="")
+  sequenceCharacters <- splitString(sequence, split="")
   pairedBases <- data.frame(Position1=integer(), Position2=integer(),
                             Nucleotide1=character(), Nucleotide2=character())
   basePairsCount <- 0

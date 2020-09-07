@@ -1,25 +1,25 @@
 Package: ncRNAtools
 Type: Package
 Title: An R toolkit for non-coding RNA
-Version: 0.99.3
+Version: 0.99.4
 Date: 2020-07-24
 Authors@R: c(
-    person("Lara", "Selles Vidal", email = "lara.selles12@imperial.ac.uk", role = "cre"),
-    person("Rafael", "Ayala", email = "r.ayala14@imperial.ac.uk", role = "aut"),
-    person("Guy-Bart", "Stan", email = "g.stan@imperial.ac.uk", role = "aut"),
-    person("Rodrigo", "Ledesma-Amaro", email = "r.ledesma-amaro@imperial.ac.uk", role = "aut"))
+    person("Lara", "Selles Vidal", email = "lara.selles12@imperial.ac.uk", role = "cre", comment = c(ORCID = "0000-0003-2537-6824")),
+    person("Rafael", "Ayala", email = "r.ayala14@imperial.ac.uk", role = "aut", comment = c(ORCID = "0000-0002-9332-4623")),
+    person("Guy-Bart", "Stan", email = "g.stan@imperial.ac.uk", role = "aut", comment = c(ORCID = "0000-0002-5560-902X")),
+    person("Rodrigo", "Ledesma-Amaro", email = "r.ledesma-amaro@imperial.ac.uk", role = "aut", comment = c(ORCID = "0000-0003-2631-5898")))
 Description: ncRNAtools provides a set of basic tools for handling and 
     analyzing non-coding RNAs. These include tools to access the RNAcentral
     database, to predict and visualize the secondary structure of non-coding
     RNAs and to read and write the file formats most commonly for representing
     such secondary structures.
 License: GPL-3
-Imports: httr, rvest, utils, grDevices, ggplot2, stringr, stringi, reshape2, 
-         IRanges, GenomicRanges, S4Vectors
-Suggests: knitr, BiocStyle, rmarkdown, BiocGenerics
+Imports: httr, xml2, utils, grDevices, ggplot2, IRanges, GenomicRanges, S4Vectors
+Suggests: knitr, BiocStyle, rmarkdown, RUnit, BiocGenerics
 VignetteBuilder: knitr
 biocViews: FunctionalGenomics, DataImport, ThirdPartyClient, Visualization,
            StructuralPrediction
 NeedsCompilation: no
 Encoding: UTF-8
 LazyData: true
+BugReports: https://github.com/LaraSellesVidal/ncRNAtools/issues

@@ -40,16 +40,13 @@ A list with the following 4 elements:
 http://rna.urmc.rochester.edu/Text/File_Formats.html#CT.
 }
 \examples{
-# Download an example CT file to a temporary location:
+exampleCTFile <- system.file("extdata", "exampleCT.ct", package="ncRNAtools")
 
-temp <- tempfile()
-download.file("https://software.broadinstitute.org/software/igv/sites/cancerinformatics.org.igv/files/example.ct", temp)
-
-# The downloaded file does not contain information for unpaired nucleotides.
-# Therefore, in order to read it, the original sequence must also be supplied
-# (tmRNA of E. coli encoded by the ssrA gene)
+# If the CT file does not contain information for unpaired nucleotides, the
+# original sequence must also be supplied in order to read it (tmRNA of E. coli 
+# encoded by the ssrA gene):
 
 tmRNASequence <- "GGGGCUGAUUCUGGAUUCGACGGGAUUUGCGAAACCCAAGGUGCAUGCCGAGGGGCGGUUGGCCUCGUAAAAAGCCGCAAAAAAUAGUCGCAAACGACGAAAACUACGCUUUAGCAGCUUAAUAACCUGCUUAGAGCCCUCUCUCCCUAGCCUCCGCUCUUAGGACGGGGAUCAAGAGAGGUCAAACCCAAAAGAGAUCGCGUGGAAGCCCUGCCUGGGGUUGAAGCGUUAAAACUUAAUCAGGCUAGUUUGUUAGUGGCGUGUCCGUCCGCAGCUGGCAAGCGAAUGUAAAGACUGACUAAGCAUGUAGUACCGAGGAUGUAGGAAUUUCGGACGCGGGUUCAACUCCCGCCAGCUCCACCA"
 
-tmRNASecondaryStructure <- readCT(temp, tmRNASequence)
+tmRNASecondaryStructure <- readCT(exampleCTFile, tmRNASequence)
 }

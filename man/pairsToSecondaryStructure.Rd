@@ -25,24 +25,26 @@ A string representing the secondary structure of the provided RNA in the Dot-Bra
 format.
 }
 \examples{
-# Predict the secondary structure of an RNA sequence with centroidFold:
+# Read a Dot Bracket file with the secondary structure of an RNA sequence:
 
-structurePrediction <- predictSecondaryStructure("GGGGAUGUAGCUCAUAUGGUAGAGCGCUCG
-CUUUGCAUGCGAGAGGCACAGGGUUCGAUUCCCUGCAUCUCCA", "centroidFold")
+exampleDotBracketFile <- system.file("extdata", "exampleDotBracket.dot", 
+                                     package="ncRNAtools")
+
+exampleDotBracket <- readDotBracket(exampleDotBracketFile)
 
 # Generate a dataframe of paired bases from the returned secondary structure
 # string:
 
-pairedBasesTable <- findPairedBases(sequence=structurePrediction$sequence,
-secondaryStructureString=structurePrediction$secondaryStructure)
+pairedBasesTable <- findPairedBases(secondaryStructureString=exampleDotBracket$secondaryStructure,
+sequence=exampleDotBracket$sequence)
 
 # Generate a secondary structure string from the table of paired bases:
 
-secondaryStructureString <- pairsToSecondaryStructure(pairedBasesTable, "GGGGAUG
-UAGCUCAUAUGGUAGAGCGCUCGCUUUGCAUGCGAGAGGCACAGGGUUCGAUUCCCUGCAUCUCCA")
+secondaryStructureString <- pairsToSecondaryStructure(pairedBasesTable,
+exampleDotBracket$sequence)
 
 # Verify that the resulting secondary structure string is equal to the original
 # prediction:
 
-secondaryStructureString == structurePrediction$secondaryStructure
+secondaryStructureString == exampleDotBracket$secondaryStructure
 }

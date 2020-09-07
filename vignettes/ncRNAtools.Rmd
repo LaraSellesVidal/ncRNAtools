@@ -25,33 +25,98 @@ Rafael Ayala, Guy-Bart Stan, Rodrigo Ledesma-Amaro </p>
 <br>
 
 # Abstract
-<p style="font-size:90%"> Non-coding RNA (ncRNA) comprise a variety of RNA molecules that are transcribed from DNA but are not translated into proteins.  They include a large diversity of RNA which perform key cellular functions, including ribosomic RNA, transference RNA, ribozymes, small nuclear and small nucleolar RNA and multiple RNAs involved in the regulation of gene expression and chromatin structure, such as cis-regulatory elements, micro RNA, interference RNA and long non-coding RNA. A key aspect in determining the function and properties of ncRNAs is their secondary structure. This package provides a set of tools for identifying ncRNAs of interest, determining and plotting their secondary structure and importing and exporting the most common file-types for ncRNA data.  <br><br> </p>
+<p style="font-size:90%"> Non-coding RNA (ncRNA) comprise a variety of RNA 
+molecules that are transcribed from DNA but are not translated into proteins.  
+They include a large diversity of RNA which perform key cellular functions, 
+including ribosomic RNA, transference RNA, ribozymes, small nuclear and small 
+nucleolar RNA and multiple RNAs involved in the regulation of gene expression 
+and chromatin structure, such as cis-regulatory elements, micro RNA,
+interferenceRNA and long non-coding RNA. A key aspect in determining the 
+function and properties of ncRNAs is their secondary structure. This package 
+provides a set of tools for identifying ncRNAs of interest, determining and 
+plotting their secondary structure and importing and exporting the most common 
+file-types for ncRNA data.  <br><br> </p>
 
 # Introduction
 
-The key role of ncRNAs in cellular processes has been well established over the last two decades, with at least 70% of the human genome reported to be transcribed into RNAs of different sizes. Given the fact that only around 28% of the human genome corresponds to protein-encoding regions (including introns and other untranslated regions), it is currently thought that the rest of the genome encodes a high number of functional RNA molecules that are not translated to proteins [@fu2014].
+The key role of ncRNAs in cellular processes has been well established over the 
+last two decades, with at least 70% of the human genome reported to be 
+transcribed into RNAs of different sizes. Given the fact that only around 28% of
+the human genome corresponds to protein-encoding regions (including introns and 
+other untranslated regions), it is currently thought that the rest of the genome
+encodes a high number of functional RNA molecules that are not translated to 
+proteins [@fu2014].
 
-One of the main characteristic features of ncRNAs is their secondary structure, defined by the intramolecular pairing of bases through hydrogen bonds. The identification of RNA secondary structure is often the basis for determining essential bases for ncRNA function, as well as for engineering novel or modified ncRNAs, including ribozymes. Furthermore, several methodologies for the prediction of RNA threedimensional structure require secondary structure information as a key input [@zhiyong2011; @thiel2017]. 
+One of the main characteristic features of ncRNAs is their secondary structure, 
+defined by the intramolecular pairing of bases through hydrogen bonds. The 
+identification of RNA secondary structure is often the basis for determining 
+essential bases for ncRNA function, as well as for engineering novel or modified 
+ncRNAs, including ribozymes. Furthermore, several methodologies for the 
+prediction of RNA threedimensional structure require secondary structure 
+information as a key input [@zhiyong2011; @thiel2017]. 
 
-ncRNAtools aims to facilitate the inclusion of ncRNA identification and analysis within existing genomics and transcriptomics workflows, as well as the application of statistical modeling for the prediction of ncRNA properties and structure by providing a set of tools for importing, exporting, plotting and analyzing ncRNAs and their features.
+ncRNAtools aims to facilitate the inclusion of ncRNA identification and analysis
+within existing genomics and transcriptomics workflows, as well as the 
+application of statistical modeling for the prediction of ncRNA properties and 
+structure by providing a set of tools for importing, exporting, plotting and 
+analyzing ncRNAs and their features.
+
+# Installation
+
+To install ncRNAtools, start R (>=4.0) and run:
+
+```{r tidy = TRUE, eval = FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+# The following line initializes usage of Bioc devel, and therefore should be
+# skipped in order to install the stable release version
+BiocManager::install(version='devel')
+
+BiocManager::install("ncRNAtools")
+```
 
 # Software features
 
-A first set of ncRNAtools functionalities allows to search the [RNAcentral](https://rnacentral.org/) database of annotated ncRNA [@rnacentral2019]. The RNAcentral database can be searched in two different ways: by keywords, and by genomic coordinates. Information about a specific entry can also be retrieved.
+A first set of ncRNAtools functionalities allows to search the [RNAcentral](https://rnacentral.org/) 
+database of annotated ncRNA [@rnacentral2019]. The RNAcentral database can be 
+searched in two different ways: by keywords, and by genomic coordinates. 
+Information about a specific entry can also be retrieved.
 
-ncRNAtools also enables the prediction of secondary structure of RNA by simply providing a sequence of interest. Secondary structure predictions are performed through the [rtools](http://rtools.cbrc.jp/) web server for RNA Bioinformatics [@hamada2016]. Currently supported methodologies for secondary structure prediction include centroidFold [@hamada2008], centroidHomfold [@hamada2011] and IPknot [@sato2011]. Only IPknot can detect pseudoknots. Alternative secondary structures can be predicted with the RintW method [@hagio2018]. Utilities to determine paired bases from a secondary structure string and viceversa are also available.
+ncRNAtools also enables the prediction of secondary structure of RNA by simply 
+providing a sequence of interest. Secondary structure predictions are performed 
+through the [rtools](http://rtools.cbrc.jp/) web server for RNA Bioinformatics [@hamada2016]. 
+Currently supported methodologies for secondary structure prediction include 
+centroidFold [@hamada2008], centroidHomfold [@hamada2011] and IPknot [@sato2011]. 
+Only IPknot can detect pseudoknots. Alternative secondary structures can be 
+predicted with the RintW method [@hagio2018]. Utilities to determine paired 
+bases from a secondary structure string and viceversa are also available.
 
-Additionally, ncRNAtools provides utilities to calculate a matrix of base pair probabilities and visualize it as a heatmap, with the possibility to make a composite plot including also a defined secondary structure.
+Additionally, ncRNAtools provides utilities to calculate a matrix of base pair 
+probabilities and visualize it as a heatmap, with the possibility to make a 
+composite plot including also a defined secondary structure.
 
-Finally, ncRNAtools supports reading and writing files in the CT and Dot-Bracket formats, the two most commonly employed formats for storing the secondary structure of RNA.
+Finally, ncRNAtools supports reading and writing files in the CT and Dot-Bracket
+formats, the two most commonly employed formats for storing the secondary 
+structure of RNA.
 
 # Examples
 
 ## Searching the RNAcentral database
 
-The RNAcentral database can be searched by keywords with the "rnaCentralTextSearch" function. The function returns a character vector where each element is a string representing the RNAcentral accession for an entry that matched the search. RNAcentral accessions are always of either the "URSXXXXXXXXXX" form, where X is any hexadecimal numeral, or "URSXXXXXXXXXX_taxid", where taxid is the NCBI taxonomy identifier for the species or strain corresponding to the entry. Searches can either include only a keyword or phrase, or be given in the field_name:"field value" syntax, with several fields separated by logical operators as described in https://rnacentral.org/help/text-search. It should be noted that logical operators must be capitalized.
+The RNAcentral database can be searched by keywords with the "rnaCentralTextSearch"
+function. The function returns a character vector where each element is a string
+representing the RNAcentral accession for an entry that matched the search. 
+RNAcentral accessions are always of either the "URSXXXXXXXXXX" form, where X is 
+any hexadecimal numeral, or "URSXXXXXXXXXX_taxid", where taxid is the NCBI 
+taxonomy identifier for the species or strain corresponding to the entry. 
+Searches can either include only a keyword or phrase, or be given in the 
+field_name:"field value" syntax, with several fields separated by logical 
+operators as described in https://rnacentral.org/help/text-search. It should be 
+noted that logical operators must be capitalized.
 
-For example, the keyword "HOTAIR" can be passed as the query to the search function to identify entries corresponding to the HOTAIR ncRNA:
+For example, the keyword "HOTAIR" can be passed as the query to the search 
+function to identify entries corresponding to the HOTAIR ncRNA:
 
 ```{r include = FALSE}
 library(ncRNAtools)
@@ -65,26 +130,41 @@ library(ggplot2)
 rnaCentralTextSearch("HOTAIR")
 ```
 
-With a more refined search, it is possible to identify RNAs corresponding to the FMN riboswitch present in Bacillus subtilis strains only. It should be noted that the quotes enclosing the value for specific fields must be escaped:
+With a more refined search, it is possible to identify RNAs corresponding to the
+FMN riboswitch present in Bacillus subtilis strains only. It should be noted 
+that the quotes enclosing the value for specific fields must be escaped:
 
 ```{r tidy = TRUE}
 rnaCentralTextSearch("FMN AND species:\"Bacillus subtilis\"")
 ```
 
-Information about the resulting entries can be retrieved with the "rnaCentralRetrieveEntry" function:
+Information about the resulting entries can be retrieved with the 
+"rnaCentralRetrieveEntry" function:
 
 ```{r tidy = TRUE}
 rnaCentralRetrieveEntry("URS000037084E_1423")
 ```
 
-It is also possible to perform a search of the RNAcentral database by specifying genomic coordinates with the "rnaCentralGenomicCoordinatesSearch" function. A GRanges object must be provided, with sequence names of the **chr?** or simply **?** format (where **?** denotes any number, the X or Y characters or another letter for organisms where chromosomes are named with letters), or, alternatively, "MT" to denote mitochondrial DNA. The species name must also be provided as a string with the scientific name. A list of organisms for which search by genomic coordinates is supported can be found at https://rnacentral.org/help/genomic-mapping. Several ranges can be provided in the same GRanges object, but they must refer to the same organism.
+It is also possible to perform a search of the RNAcentral database by specifying
+genomic coordinates with the "rnaCentralGenomicCoordinatesSearch" function. 
+A GRanges object must be provided, with sequence names of the **chr?** or simply
+**?** format (where **?** denotes any number, the X or Y characters or another 
+letter for organisms where chromosomes are named with letters), or, alternatively,
+"MT" to denote mitochondrial DNA. The species name must also be provided as a 
+string with the scientific name. A list of organisms for which search by genomic
+coordinates is supported can be found at https://rnacentral.org/help/genomic-mapping. 
+Several ranges can be provided in the same GRanges object, but they must refer
+to the same organism.
 
-In the following example, we aim to retrieve the known ncRNA present in Yarrowia lipolytica (oleaginous yeast) between positions 200000 and 300000 of chromosome C, and positions 500000 and 550000 of chromosome D:
+In the following example, we aim to retrieve the known ncRNA present in Yarrowia
+lipolytica (oleaginous yeast) between positions 200000 and 300000 of 
+chromosome C, and positions 500000 and 550000 of chromosome D:
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff = 80)}
 ## Generate a GRanges object with the genomic ranges to be used to search the RNAcentral database
 
-genomicCoordinates <- GenomicRanges::GRanges(seqnames=S4Vectors::Rle(c("chrC", "chrD")), ranges=IRanges::IRanges(c(200000, 500000), c(300000, 550000)))
+genomicCoordinates <- GenomicRanges::GRanges(seqnames=S4Vectors::Rle(c("chrC", "chrD")), 
+                                             ranges=IRanges::IRanges(c(200000, 500000), c(300000, 550000)))
 
 ## Use the generated GRanges object to search the RNAcentral database
 
@@ -99,119 +179,166 @@ length(RNAcentralHits[[2]]) # No known ncRNA between positions 500000 and 550000
 
 ## Predicting the secondary structure of an RNA
 
-The "predictSecondaryStructure" function enables the prediction of the secondary structure of RNA through three different methods: centroidFold [@hamada2008], centroidHomfold [@hamada2011] and IPknot [@sato2011]. IPknot has the advantage of being able to detect pseudoknots.
+The "predictSecondaryStructure" function enables the prediction of the secondary
+structure of RNA through three different methods: centroidFold [@hamada2008], 
+centroidHomfold [@hamada2011] and IPknot [@sato2011]. IPknot has the advantage 
+of being able to detect pseudoknots.
 
-The secondary structure predictions by centroidFold and centroidHomfold are output in the Dot-Bracket format, where dots (".") represent unpaired bases and pairs of open and closed round brackets ("("-")") represent paired bases. Such format cannot unambiguously represent nested structures such as pseudoknots. Therefore, the output of IPknot is provided, if required, in the extended Dot-Bracket format, where additional pairs of symbols are used to represent such nested structures.
+The secondary structure predictions by centroidFold and centroidHomfold are 
+output in the Dot-Bracket format, where dots (".") represent unpaired bases and 
+pairs of open and closed round brackets ("("-")") represent paired bases. Such 
+format cannot unambiguously represent nested structures such as pseudoknots. 
+Therefore, the output of IPknot is provided, if required, in the extended 
+Dot-Bracket format, where additional pairs of symbols are used to represent such
+nested structures.
 
-In the following example, all three methods are used to predict the structure of a TPP riboswitch:
+In the following example, all three methods are used to predict the structure of
+a fragment of a tRNA:
 
 ```{r tidy = TRUE}
-TPPriboswitchSequence <- "CCUACUAGGGGAGCCAAAAGGCUGAGAUGAAUGUAUUCAGACCCUUAUAACCUGAUUUGGUUAAUACCAACGUAGGAAAGUAGUUAUUAACUAUUCGUCAUUGAGAUGUCUUGGUCUAACUACUUUCUUCGCUGGGAAGUAGUU"
+tRNAfragment <- "UGCGAGAGGCACAGGGUUCGAUUCCCUGCAUCUCCA"
 
-centroidFoldPrediction <- predictSecondaryStructure(TPPriboswitchSequence, "centroidFold")
+centroidFoldPrediction <- predictSecondaryStructure(tRNAfragment, "centroidFold")
 centroidFoldPrediction$secondaryStructure
 
-centroidHomFoldPrediction <- predictSecondaryStructure(TPPriboswitchSequence, "centroidHomFold")
+centroidHomFoldPrediction <- predictSecondaryStructure(tRNAfragment, "centroidHomFold")
 centroidFoldPrediction$secondaryStructure
 
-IPknotPrediction <- predictSecondaryStructure(TPPriboswitchSequence, "IPknot")
+IPknotPrediction <- predictSecondaryStructure(tRNAfragment, "IPknot")
 IPknotPrediction$secondaryStructure
 ```
 
-It is also possible to predict not only a single canonical secondary structure, but also a set of possible alternative secondary structures. This is achieved with the RintW method [@hagio2018], available through the "predictAlternativeSecondaryStructures" function.
+It is also possible to predict not only a single canonical secondary structure, 
+but also a set of possible alternative secondary structures. This is achieved 
+with the RintW method [@hagio2018], available through the 
+"predictAlternativeSecondaryStructures" function.
 
 ```{r tidy = TRUE}
-TPPriboswitchSequence <- "CCUACUAGGGGAGCCAAAAGGCUGAGAUGAAUGUAUUCAGACCCUUAUAACCUGAUUUGGUUAAUACCAACGUAGGAAAGUAGUUAUUAACUAUUCGUCAUUGAGAUGUCUUGGUCUAACUACUUUCUUCGCUGGGAAGUAGUU"
+tRNAfragment2 <- "AAAGGGGUUUCCC"
 
-RintWPrediction <- predictAlternativeSecondaryStructures(TPPriboswitchSequence)
+RintWPrediction <- predictAlternativeSecondaryStructures(tRNAfragment2)
 
-length(RintWPrediction) # A total of 3 alternative secondary structures were identified by RintW
+length(RintWPrediction) # A total of 2 alternative secondary structures were identified by RintW
 
 RintWPrediction[[1]]$secondaryStructure
 RintWPrediction[[2]]$secondaryStructure
-RintWPrediction[[3]]$secondaryStructure
 ```
 
 ## Calculating and plotting of base pair probability matrices
 
-Both centroidFold and centroidHomfold return not only a prediction of the secondary structure of an RNA, but also a list of probabilities for potential base pairs for each nucleotide. Such a matrix can be useful in assessing the potential presence of alternative secondary structures.
+Both centroidFold and centroidHomfold return not only a prediction of the 
+secondary structure of an RNA, but also a list of probabilities for potential 
+base pairs for each nucleotide. Such a matrix can be useful in assessing the 
+potential presence of alternative secondary structures.
 
-A matrix of base pair probabilities can be generated with the "generatePairsProbabilityMatrix", which takes as input the probabilities in the format returned by centroidFold and centroidHomFold. The base pair probabilities matrix can then be plotted with the "plotPairsProbabilityMatrix" function:
+A matrix of base pair probabilities can be generated with the 
+"generatePairsProbabilityMatrix", which takes as input the probabilities in the 
+format returned by centroidFold and centroidHomFold. The base pair probabilities
+matrix can then be plotted with the "plotPairsProbabilityMatrix" function:
 
 ```{r tidy = TRUE}
-TPPBasePairProbabilityMatrix <- generatePairsProbabilityMatrix(centroidFoldPrediction$basePairProbabilities)
+basePairProbabilityMatrix <- generatePairsProbabilityMatrix(centroidFoldPrediction$basePairProbabilities)
 
-plotPairsProbabilityMatrix(TPPBasePairProbabilityMatrix)
+plotPairsProbabilityMatrix(basePairProbabilityMatrix)
 ```
 
-A composite plot, where the top right triangle represents the base pair probabilities while the bottom left triangle represents base pairings in a specific secondary structure, can be generated with the "plotCompositePairsMatrix" function. Usually, base pairs in a secondary structure correspond to pairs with a high probability. The function takes as its input a matrix of base pair probabilities, and a dataframe with bases paired in a given secondary structure. Such a dataframe can be generated from a secondary structure string with the "findPairedBases" function.
+A composite plot, where the top right triangle represents the base pair 
+probabilities while the bottom left triangle represents base pairings in a 
+specific secondary structure, can be generated with the "plotCompositePairsMatrix"
+function. Usually, base pairs in a secondary structure correspond to pairs with 
+a high probability. The function takes as its input a matrix of base pair 
+probabilities, and a dataframe with bases paired in a given secondary structure.
+Such a dataframe can be generated from a secondary structure string with the 
+"findPairedBases" function.
 
-In the following example, such a composite plot is generated for each of the three alternative secondary structures predicted by RintW for the TPP riboswitch:
+In the following example, such a composite plot is generated the secondary
+structure predicted by centroidFold for the tRNA fragment:
 
 ```{r tidy = TRUE}
-pairedBasesAlt1 <- findPairedBases(sequence=TPPriboswitchSequence, secondaryStructureString = RintWPrediction[[1]]$secondaryStructure)
-pairedBasesAlt2 <- findPairedBases(sequence=TPPriboswitchSequence, secondaryStructureString = RintWPrediction[[2]]$secondaryStructure)
-pairedBasesAlt3 <- findPairedBases(sequence=TPPriboswitchSequence, secondaryStructureString = RintWPrediction[[3]]$secondaryStructure)
+pairedBases <- findPairedBases(sequence=tRNAfragment, secondaryStructureString=IPknotPrediction$secondaryStructure)
 
-plotCompositePairsMatrix(TPPBasePairProbabilityMatrix, pairedBasesAlt1)
-plotCompositePairsMatrix(TPPBasePairProbabilityMatrix, pairedBasesAlt2)
-plotCompositePairsMatrix(TPPBasePairProbabilityMatrix, pairedBasesAlt3)
+plotCompositePairsMatrix(basePairProbabilityMatrix, pairedBases)
 ```
 
 ## Reading and writing files and other utilities
 
-ncRNAtools supports reading and writing files in the CT and Dot-Bracket format. For a description of each format, see http://projects.binf.ku.dk/pgardner/bralibase/RNAformats.html and https://rna.urmc.rochester.edu/Text/File_Formats.html.
+ncRNAtools supports reading and writing files in the CT and Dot-Bracket format. 
+For a description of each format, see http://projects.binf.ku.dk/pgardner/bralibase/RNAformats.html 
+and https://rna.urmc.rochester.edu/Text/File_Formats.html.
 
-CT files are read with the "readCT" function. Some CT files contain a line for each nucleotide of the RNA sequence, while others contain lines only for paired nucleotides. In the second case, the full sequence must be provided when calling "readCT".
+CT files are read with the "readCT" function. Some CT files contain a line for 
+each nucleotide of the RNA sequence, while others contain lines only for paired 
+nucleotides. In the second case, the full sequence must be provided when calling 
+"readCT".
 
-The list returned by "readCT" includes an element named "pairsTable", consisting of a dataframe indicating paired nucleotides. A corresponding secondary structure string in the Dot-Bracket format can be generated with the "pairsToSecondaryStructure" function.
+The list returned by "readCT" includes an element named "pairsTable", consisting
+of a dataframe indicating paired nucleotides. A corresponding secondary 
+structure string in the Dot-Bracket format can be generated with the 
+"pairsToSecondaryStructure" function.
 
-CT files are written with the "writeCT" function. A complete CT file is always output by "writeCT".
+CT files are written with the "writeCT" function. A complete CT file is always 
+output by "writeCT".
 
-Files in the Dot-Bracket format are read and written with the "readDotBracket" and "writeDotBracket" functions respectively. If the read Dot-Bracket file contains an energy value for the represented structure, it will be included in the output of "readDotBracket".
+Files in the Dot-Bracket format are read and written with the "readDotBracket" 
+and "writeDotBracket" functions respectively. If the read Dot-Bracket file 
+contains an energy value for the represented structure, it will be included in 
+the output of "readDotBracket".
 
 ```{r tidy = TRUE}
 ## Read an example CT file corresponding to E. coli tmRNA
 
-temp <- tempfile()
-download.file("https://software.broadinstitute.org/software/igv/sites/cancerinformatics.org.igv/files/example.ct", temp)
+exampleCTFile <- system.file("extdata", "exampleCT.ct", package="ncRNAtools")
 
 tmRNASequence <- "GGGGCUGAUUCUGGAUUCGACGGGAUUUGCGAAACCCAAGGUGCAUGCCGAGGGGCGGUUGGCCUCGUAAAAAGCCGCAAAAAAUAGUCGCAAACGACGAAAACUACGCUUUAGCAGCUUAAUAACCUGCUUAGAGCCCUCUCUCCCUAGCCUCCGCUCUUAGGACGGGGAUCAAGAGAGGUCAAACCCAAAAGAGAUCGCGUGGAAGCCCUGCCUGGGGUUGAAGCGUUAAAACUUAAUCAGGCUAGUUUGUUAGUGGCGUGUCCGUCCGCAGCUGGCAAGCGAAUGUAAAGACUGACUAAGCAUGUAGUACCGAGGAUGUAGGAAUUUCGGACGCGGGUUCAACUCCCGCCAGCUCCACCA"
 
-tmRNASecondaryStructure <- readCT(temp, tmRNASequence)
+tmRNASecondaryStructure <- readCT(exampleCTFile, tmRNASequence)
 
 ## Write a complete CT file for E. coli tmRNA
 
 tempDir <- tempdir()
-CTFile <- paste(tempDir, "testCTfile.ct", sep="")
+testCTFile <- paste(tempDir, "testCTfile.ct", sep="")
 
 tmRNASecondaryStructureString <- pairsToSecondaryStructure(pairedBases=tmRNASecondaryStructure$pairsTable, sequence=tmRNASequence)
 
-writeCT(CTFile, sequence=tmRNASequence, secondaryStructure=tmRNASecondaryStructureString, sequenceName="tmRNA")
+writeCT(testCTFile, sequence=tmRNASequence, 
+        secondaryStructure=tmRNASecondaryStructureString, sequenceName="tmRNA")
 
 ## Read an example Dot-Bracket file
 
-temp2 <- tempfile()
-download.file("http://www.biomath.nyu.edu/rag/examples/Top1.out", temp2)
+exampleDotBracketFile <- system.file("extdata", "exampleDotBracket.dot", 
+                                     package="ncRNAtools")
 
-exampleDotBracket <- readDotBracket(temp2)
+exampleDotBracket <- readDotBracket(exampleDotBracketFile)
 
-exampleDotBracket$freeEnergy # The represented structure has a free energy of -41.2 kcal/mol
+exampleDotBracket$freeEnergy # The structure has a free energy of -41.2 kcal/mol
 
 ## Write a Dot-Bracket file
 
 tempDir2 <- tempdir()
-DotBracketFile <- paste(tempDir2, "testDotBracketFile.dot", sep="")
+testDotBracketFile <- paste(tempDir2, "testDotBracketFile.dot", sep="")
 
-writeDotBracket(DotBracketFile, sequence=exampleDotBracket$sequence, secondaryStructure=exampleDotBracket$secondaryStructure, sequenceName="Test sequence")
+writeDotBracket(testDotBracketFile, sequence=exampleDotBracket$sequence, 
+                secondaryStructure=exampleDotBracket$secondaryStructure, 
+                sequenceName="Test sequence")
 ```
 
-ncRNAtools includes an utility to flatten representations of secondary structure in the extended Dot-Bracket format to basic Dot-Bracket format (i.e., comprising only the ".", "(" and ")" characters). Although information is potentially lost upon such transformation, this is required for some RNA Bioinformatics software, which can only accept secondary structures in the Dot-Bracket format as input. This can be achieved with the "flattenDotBracket" function.
+ncRNAtools includes an utility to flatten representations of secondary structure
+in the extended Dot-Bracket format to basic Dot-Bracket format (i.e., comprising
+only the ".", "(" and ")" characters). Although information is potentially lost 
+upon such transformation, this is required for some RNA Bioinformatics software,
+which can only accept secondary structures in the Dot-Bracket format as input. 
+This can be achieved with the "flattenDotBracket" function.
 
 ```{r tidy = TRUE}
 extendedDotBracketString <- "...((((..[[[.))))]]]..."
 
 plainDotBracketString <- flattenDotBracket(extendedDotBracketString)
+```
+
+# Session info
+
+```{r tidy = TRUE}
+sessionInfo()
 ```
 
 # References

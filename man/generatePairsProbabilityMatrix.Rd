@@ -28,13 +28,12 @@ the nucleotides at positions given by the row and columns of the cell form a
 base pair.
 }
 \examples{
-# Predict the secondary structure of an RNA sequence with centroidFold:
+# Load an example table of base pair probabilities, calculated with centroidFold:
 
-structurePrediction <- predictSecondaryStructure("GGGGAUGUAGCUCAUAUGGUAGAGCGCUCG
-CUUUGCAUGCGAGAGGCACAGGGUUCGAUUCCCUGCAUCUCCA", "centroidFold")
+basePairProbabilitiesTable <- read.csv(system.file("extdata", "exampleBasePairProbabilitiesTable.csv", package="ncRNAtools"))
 
 # Generate a base pair probability matrix from the returned base pair probability
 # table:
 
-basePairProbabilityMatrix <- generatePairsProbabilityMatrix(structurePrediction$basePairProbabilities)
+basePairProbabilityMatrix <- generatePairsProbabilityMatrix(basePairProbabilitiesTable)
 }
