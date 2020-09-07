@@ -30,7 +30,8 @@ A ggplot object with a representation of the base pair probability matrix.
 \examples{
 # Load an example table of base pair probabilities, calculated with centroidFold:
 
-basePairProbabilitiesTable <- read.csv(system.file("extdata", "exampleBasePairProbabilitiesTable.csv", package="ncRNAtools"))
+basePairProbabilitiesTable <- read.csv(system.file("extdata", 
+"exampleBasePairProbabilitiesTable.csv", package="ncRNAtools"))
 
 # Generate a matrix of base pair probabilities:
 

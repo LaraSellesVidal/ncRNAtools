@@ -1,4 +1,5 @@
 readCT <- function(filename, sequence=NULL) {
+  sequence <- removeNewLines(sequence)
   inputFile <- file(filename, "r")
   firstLine <- readLines(inputFile, n=1)
   connectivityTable <- read.table(inputFile)
@@ -53,6 +54,7 @@ readDotBracket <- function(filename) {
 }
 
 writeCT <- function(filename, sequence, secondaryStructure=NULL, sequenceName="Sequence", pairedBases=NULL) {
+  sequence <- removeNewLines(sequence)
   if (is.null(secondaryStructure) & is.null(pairedBases)) {
     stop("Please provide a secondary structure string or dataframe of paired bases.")
   } else if (!is.null(secondaryStructure) & is.null(pairedBases)) {
@@ -83,6 +85,7 @@ writeCT <- function(filename, sequence, secondaryStructure=NULL, sequenceName="S
 
 writeDotBracket <- function(filename, sequence, secondaryStructure, 
                             sequenceName="Sequence") {
+  sequence <- removeNewLines(sequence)
   outputFile <- file(filename, "w")
   writeLines(paste(">", sequenceName, sep=""), outputFile)
   writeLines(sequence, outputFile)

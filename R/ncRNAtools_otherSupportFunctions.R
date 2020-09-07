@@ -172,3 +172,7 @@ flattenDotBracket <- function(extendedDotBracketString) {
 splitString <- function(string, split, ...) {
   return(unlist(strsplit(string, split=split, ...)))
 }
+
+removeNewLines <- function(string) {
+  return(gsub("[\r\n]", "", string))
+}

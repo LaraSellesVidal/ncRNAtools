@@ -30,7 +30,8 @@ base pair.
 \examples{
 # Load an example table of base pair probabilities, calculated with centroidFold:
 
-basePairProbabilitiesTable <- read.csv(system.file("extdata", "exampleBasePairProbabilitiesTable.csv", package="ncRNAtools"))
+basePairProbabilitiesTable <- read.csv(system.file("extdata", 
+"exampleBasePairProbabilitiesTable.csv", package="ncRNAtools"))
 
 # Generate a base pair probability matrix from the returned base pair probability
 # table:

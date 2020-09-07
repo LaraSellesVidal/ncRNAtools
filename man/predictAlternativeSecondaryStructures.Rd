@@ -14,7 +14,7 @@ predictAlternativeSecondaryStructures(sequence, gammaWeight=4, inferenceEngine="
 \arguments{
   \item{sequence}{string with an RNA sequence whose secondary structure should
   be predicted. Should contain only standard RNA symbols (i.e., "A", "U", "G"
-  and "C"), and no spaces or newlines.
+  and "C").
   }
   \item{gammaWeight}{weight factor for predicted base pairs. It directly affects
   the number of predicted base pairs. A higher value leads to a higher number of

@@ -1,5 +1,6 @@
 predictSecondaryStructure <- function(sequence, method, gammaWeight=NULL, inferenceEngine=NULL,
                                       alignmentEngine=NULL, eValueRfamSearch=NULL, numHomSeqsRfamSearch=NULL) {
+  sequence <- removeNewLines(sequence)
   checkRNAString(sequence)
   sendQueryResult <- sendSecondaryStructureQuery(sequence, method, gammaWeight=gammaWeight, inferenceEngine=inferenceEngine,
                                                  alignmentEngine=alignmentEngine, eValueRfamSearch=eValueRfamSearch,
@@ -17,6 +18,7 @@ predictSecondaryStructure <- function(sequence, method, gammaWeight=NULL, infere
 }
 
 predictAlternativeSecondaryStructures <- function(sequence, gammaWeight=4, inferenceEngine="BL") {
+  sequence <- removeNewLines(sequence)
   checkRNAString(sequence)
   sendQueryResult <- sendAlternativeSecondaryStructureQuery(sequence, gammaWeight=gammaWeight, inferenceEngine=inferenceEngine)
   predictionFinished <- FALSE
@@ -49,6 +51,7 @@ generatePairsProbabilityMatrix <- function(basePairProbsTable) {
 }
 
 findPairedBases <- function(secondaryStructureString, sequence) {
+  sequence <- removeNewLines(sequence)
   checkBasicDotBracketString(secondaryStructureString)
   secondaryStructureCharacters <- splitString(secondaryStructureString, split="")
   sequenceCharacters <- splitString(sequence, split="")
@@ -77,6 +80,7 @@ findPairedBases <- function(secondaryStructureString, sequence) {
 }
 
 pairsToSecondaryStructure <- function(pairedBases, sequence) {
+  sequence <- removeNewLines(sequence)
   secondaryStructureString <- rep(".", nchar(sequence))
   secondaryStructureString[pairedBases[, "Position1"]] <- "("
   secondaryStructureString[pairedBases[, "Position2"]] <- ")"

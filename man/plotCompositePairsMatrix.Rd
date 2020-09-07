@@ -39,8 +39,8 @@ bases paired in a given secondary structure.
 # Create a list with an RNA sequence, its secondary structure and a table of 
 # base pair probabilities, calculated with centroidFold:
 
-secondaryStructure <- list(sequence="GGGGAUGUAGCUCAUAUGGUAGAGCGCUCGCUUUGCAUGCGAGAGGCACAGGGUUCGAUUCCCUGCAUCUCCA",
-secondaryStructure="(((((((..((((........)))).(((((.......))))).....(((((.......)))))))))))).",
+secondaryStructure <- list(sequence="GGGGAUGUAGCUCAUAUGGUAGAGCGCUCGCUUUGCAUGCGAGAGGCACAGGGUUCGAUUCCCUGCAUCUCCA", 
+secondaryStructure="(((((((..((((........)))).(((((.......))))).....(((((.......)))))))))))).", 
 basePairProbabilities=read.csv(system.file("extdata", "exampleBasePairProbabilitiesTable.csv", package="ncRNAtools")))
 
 # Generate a matrix of base pair probabilities:

@@ -14,7 +14,7 @@ alignmentEngine=NULL, eValueRfamSearch=NULL, numHomSeqsRfamSearch=NULL)
 \arguments{
   \item{sequence}{string with an RNA sequence whose secondary structure should
   be predicted. Should contain only standard RNA symbols (i.e., "A", "U", "G"
-  and "C"), and no spaces or newlines.
+  and "C").
   }
   \item{method}{method that should be used for the prediction of RNA secondary
   structure. Possible values are "centroidFold", "centroidHomFold" and "IPknot".

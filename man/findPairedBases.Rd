@@ -15,7 +15,7 @@ findPairedBases(secondaryStructureString, sequence)
   }
   \item{sequence}{string with the RNA sequence corresponding to the provided
   secondary structure string. Should contain only standard RNA symbols (i.e.,
-  "A", "U", "G" and "C"), and no spaces or newlines.
+  "A", "U", "G" and "C").
   }
 }
 \value{

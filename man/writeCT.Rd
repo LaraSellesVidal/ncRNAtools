@@ -45,6 +45,7 @@ http://rna.urmc.rochester.edu/Text/File_Formats.html#CT.
 
 tempDir <- tempdir()
 CTFile <- paste(tempDir, "testCTFile.ct", sep="")
-writeCT(CTFile, "AGCGGGUUCCUGGUUCCCCAAGGUUGA", secondaryStructure="...(((..((.))..))).((..))..",
+writeCT(CTFile, "AGCGGGUUCCUGGUUCCCCAAGGUUGA", 
+secondaryStructure="...(((..((.))..))).((..))..",
 sequenceName="Test sequence")
 }
