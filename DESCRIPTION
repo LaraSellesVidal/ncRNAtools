@@ -1,10 +1,10 @@
 Package: ncRNAtools
 Type: Package
 Title: An R toolkit for non-coding RNA
-Version: 0.99.5
+Version: 0.99.6
 Date: 2020-07-24
 Authors@R: c(
-    person("Lara", "Selles Vidal", email = "lara.selles12@imperial.ac.uk", role = "cre", comment = c(ORCID = "0000-0003-2537-6824")),
+    person("Lara", "Selles Vidal", email = "lara.selles12@imperial.ac.uk", role = c("cre", "aut"), comment = c(ORCID = "0000-0003-2537-6824")),
     person("Rafael", "Ayala", email = "r.ayala14@imperial.ac.uk", role = "aut", comment = c(ORCID = "0000-0002-9332-4623")),
     person("Guy-Bart", "Stan", email = "g.stan@imperial.ac.uk", role = "aut", comment = c(ORCID = "0000-0002-5560-902X")),
     person("Rodrigo", "Ledesma-Amaro", email = "r.ledesma-amaro@imperial.ac.uk", role = "aut", comment = c(ORCID = "0000-0003-2631-5898")))
