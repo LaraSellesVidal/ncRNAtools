@@ -1,3 +1,6 @@
+Changes in version 0.99.6 (2020-09-29)
++ Changed all URLs to http to prevent issues when accessing websites via HTTPS due to a bug in OpenSSL 1.1.1
+
 Changes in version 0.99.4 (2020-09-07)
 + Introduced changes suggested during Bioconductor review
 
