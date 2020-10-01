@@ -2,9 +2,17 @@ rnaCentralTextSearch <- function(query) {
   if (!is.character(query)) {
     stop("Input query is not a string")
   }
-  result <- GET(rnaCentralEbiApiURL,
-                query=list(query=query,
-                           format="idlist"))
+  if(localOS == "Linux") {
+    httrConfig <- config(ssl_cipher_list="DEFAULT@SECLEVEL=1")
+    result <- with_config(config=httrConfig, GET(rnaCentralEbiApiURL,
+                                                 query=list(query=query,
+                                                            format="idlist")))
+  }
+  else {
+    result <- GET(rnaCentralEbiApiURL,
+                  query=list(query=query,
+                             format="idlist"))
+  }
   matchList <- splitString(content(result, as="text"), split="\n")
   return(matchList[grep("^URS", matchList)])
 }
@@ -14,8 +22,16 @@ rnaCentralRetrieveEntry <- function(rnaCentralID) {
   if (!grep("^URS", rnaCentralID)) {
     stop("Invalid RNAcentral ID provided.")
   }
-  result <- GET(paste(rnaCentralApiURL, "/", rnaCentralID, sep=""),
-                accept_json())
+  if(localOS == "Linux") {
+    httrConfig <- config(ssl_cipher_list="DEFAULT@SECLEVEL=1")
+    result <- with_config(config=httrConfig, GET(paste(rnaCentralApiURL, "/", 
+                                                       rnaCentralID, sep=""),
+                                                 accept_json()))
+  }
+  else {
+    result <- GET(paste(rnaCentralApiURL, "/", rnaCentralID, sep=""),
+                  accept_json())
+  }
   resultContent <- content(result)
   parsedResult <- list(rnaCentralID=resultContent$rnacentral_id,
                        sequence=resultContent$sequence,
@@ -44,9 +60,17 @@ rnaCentralGenomicCoordinatesSearch <- function(genomicRanges, species) {
   endPoints <- end(genomicRanges)
   annotatedRNA <- vector(mode="list", length=length(genomicRanges))
   for (i in seq_len(length(genomicRanges))) {
-    result <- GET(paste(rnaCentralRangeSearchURL, "/", speciesString, "/", chromosomes[i],
-                        ":", startPoints[i], "-", endPoints[i], sep=""),
-                  accept_json())
+    if(localOS == "Linux") {
+      httrConfig <- config(ssl_cipher_list="DEFAULT@SECLEVEL=1")
+      result <- with_config(config=httrConfig, GET(paste(rnaCentralRangeSearchURL, "/", speciesString, "/", chromosomes[i],
+                                                         ":", startPoints[i], "-", endPoints[i], sep=""),
+                                                   accept_json()))
+    }
+    else {
+      result <- GET(paste(rnaCentralRangeSearchURL, "/", speciesString, "/", chromosomes[i],
+                          ":", startPoints[i], "-", endPoints[i], sep=""),
+                    accept_json())
+    }
     parsedResult <- content(result)
     parsedResult <- parsedResult[grepl("^URS", unlist(lapply(parsedResult, `[`, "external_name")))]
     annotatedRNA[[i]] <- lapply(parsedResult, function(hit) list(rnaCentralID=splitString(hit$ID, split="@")[1],
