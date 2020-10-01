@@ -7,3 +7,4 @@ rtoolsBaseURL <- 'http://rtools.cbrc.jp/'
 globalVariables(c("nucleotide1", "nucleotide2", "probability"))
 
 localOS <- Sys.info()["sysname"]
+

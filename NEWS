@@ -1,4 +1,4 @@
-Changes in version 0.99.8 (2020-09-29)
+Changes in version 0.99.9 (2020-10-01)
 + Reverted changes introduced in 0.99.6 
 + Set SSL security level to 1 in Linux environment to bypass a bug in OpenSSL 1.1.1
 
